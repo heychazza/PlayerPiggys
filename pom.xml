@@ -118,6 +118,12 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>de.erethon</groupId>
+            <artifactId>headlib</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
     </dependencies>
 
     <repositories>
@@ -136,6 +142,10 @@
         <repository>
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
+        </repository>
+        <repository>
+            <id>dre-repo</id>
+            <url>https://erethon.de/repo/</url>
         </repository>
     </repositories>
 </project>

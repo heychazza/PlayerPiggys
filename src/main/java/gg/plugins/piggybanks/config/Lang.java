@@ -13,12 +13,9 @@ public enum Lang {
     PREFIX("&8[&5PiggyBanks&8]"),
     COMMAND_NO_PERMISSION("{0} &cYou don't have permissions to do that."),
     COMMAND_PLAYER_ONLY("{0} &cThe command or args specified can only be used by a player."),
-    COMMAND_INVALID("{0} &7That command doesn't exist, use &d/pbanks help&c."),
-    COMMAND_UNKNOWN("{0} &7That player couldn't be found."),
-    MAIN_COMMAND("{0} &7Running &f{1} &7version &5{2} &7by &d{3}&7."),
-    HELP_COMMAND_HEADER("", "{0} &7Listing Commands:", "&7"),
-    HELP_COMMAND_FORMAT(" &d/pbanks {1} &8- &7{2}"),
-    HELP_COMMAND_FOOTER("", "{0} &7Total of &f{1} &7commands."),
+    COMMAND_WITHDRAW("{0} &7You've moved &d{1} &7to a Piggy Bank&7."),
+    COMMAND_INVALID("{0} &7That command couldn't be found."),
+    MAIN_COMMAND("{0} &7Use &d/{1} <amount> &7to withdraw money."),
     RELOAD_COMMAND("{0} &7Successfully reloaded the configuration file."),
     ;
 

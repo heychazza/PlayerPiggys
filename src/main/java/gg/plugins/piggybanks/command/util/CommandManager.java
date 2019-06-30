@@ -1,8 +1,10 @@
 package gg.plugins.piggybanks.command.util;
 
 import gg.plugins.piggybanks.PiggyBanks;
+import gg.plugins.piggybanks.api.PiggyBank;
 import gg.plugins.piggybanks.command.ReloadCommand;
 import gg.plugins.piggybanks.config.Lang;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -57,6 +59,19 @@ public class CommandManager {
         if (command == null) {
             Lang.MAIN_COMMAND.send(sender, Lang.PREFIX.asString(), plugin.getDescription().getName(), plugin.getDescription().getVersion(), plugin.getDescription().getAuthors().get(0));
             return true;
+        }
+
+        Bukkit.broadcastMessage("Is '" + command + "' an integer?");
+        try{
+            int amount = Integer.parseInt(command);
+            Player player = (Player) sender;
+            player.getInventory().addItem(PiggyBank.create(player, 50));
+            Lang.COMMAND_WITHDRAW.asString(Lang.PREFIX.asString(), amount);
+
+            // is an integer!
+            return true;
+        } catch (NumberFormatException e) {
+            // not an integer!
         }
 
         if (commands.containsKey(command.toLowerCase())) {

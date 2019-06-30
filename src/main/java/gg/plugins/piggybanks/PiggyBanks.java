@@ -28,9 +28,9 @@ public class PiggyBanks extends JavaPlugin {
 
     private void registerCommands() {
         this.commandManager = new CommandManager(this);
-        this.getCommand("levellingtools").setExecutor(new CommandExecutor(this));
-        if (this.getCommand("levellingtools").getPlugin() != this) {
-            this.getLogger().warning("/levellingtools command is being handled by plugin other than " + this.getDescription().getName() + ". You must use /levellingtools:levellingtools instead.");
+        this.getCommand("piggybanks").setExecutor(new CommandExecutor(this));
+        if (this.getCommand("piggybanks").getPlugin() != this) {
+            this.getLogger().warning("/piggybanks command is being handled by plugin other than " + this.getDescription().getName() + ". You must use /piggybanks:piggybanks instead.");
         }
     }
 
