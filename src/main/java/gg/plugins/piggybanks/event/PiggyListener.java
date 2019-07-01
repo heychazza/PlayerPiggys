@@ -3,7 +3,6 @@ package gg.plugins.piggybanks.event;
 import de.tr7zw.itemnbtapi.NBTItem;
 import gg.plugins.piggybanks.PiggyBanks;
 import gg.plugins.piggybanks.config.Lang;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -28,19 +27,23 @@ public class PiggyListener implements Listener {
         Player player = e.getPlayer();
         NBTItem nbtItem = new NBTItem(e.hasItem() ? e.getItem() : new ItemStack(Material.AIR));
 
-        if (nbtItem.getItem().getType() != Material.AIR && nbtItem.hasNBTData()) {
+        if (nbtItem.getItem().getType() != Material.AIR && nbtItem.hasNBTData() && nbtItem.hasKey("created-by")) {
             OfflinePlayer owner = Bukkit.getOfflinePlayer(UUID.fromString(nbtItem.getString("created-by")));
             int value = nbtItem.getInteger("balance");
 
             e.setCancelled(true);
 
-            if(player.getUniqueId() == owner.getUniqueId()) {
+            if (player.getUniqueId() == owner.getUniqueId()) {
                 Lang.REDEEM_SELF.send(player, Lang.PREFIX.asString(), value);
             } else {
                 Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), owner.getName(), value);
             }
 
             plugin.getEcon().depositPlayer(player, value);
+
+            if(e.getItem().getAmount() > 1)
+                e.getItem().setAmount(e.getItem().getAmount() - 1);
+            else player.setItemInHand(null);
 
         }
     }
