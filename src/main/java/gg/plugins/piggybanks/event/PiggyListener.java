@@ -2,6 +2,7 @@ package gg.plugins.piggybanks.event;
 
 import de.tr7zw.itemnbtapi.NBTItem;
 import gg.plugins.piggybanks.PiggyBanks;
+import gg.plugins.piggybanks.api.BagRedeemEvent;
 import gg.plugins.piggybanks.config.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -39,6 +40,12 @@ public class PiggyListener implements Listener {
             OfflinePlayer owner = Bukkit.getOfflinePlayer(UUID.fromString(nbtItem.getString("created-by")));
             int value = nbtItem.getInteger("balance");
 
+            BagRedeemEvent bagRedeemEvent = new BagRedeemEvent(owner, value);
+
+            if (bagRedeemEvent.isCancelled()) {
+                return;
+            }
+
             e.setCancelled(true);
 
             if (player.getUniqueId() == owner.getUniqueId()) {
@@ -52,7 +59,6 @@ public class PiggyListener implements Listener {
             if(e.getItem().getAmount() > 1)
                 e.getItem().setAmount(e.getItem().getAmount() - 1);
             else player.setItemInHand(null);
-
         }
     }
 }
