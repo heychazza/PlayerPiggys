@@ -61,11 +61,10 @@ public class CommandManager {
             return true;
         }
 
-        Bukkit.broadcastMessage("Is '" + command + "' an integer?");
         try{
             int amount = Integer.parseInt(command);
             Player player = (Player) sender;
-            player.getInventory().addItem(PiggyBank.create(player, 50));
+            player.getInventory().addItem(PiggyBank.create(player, amount));
             Lang.COMMAND_WITHDRAW.asString(Lang.PREFIX.asString(), amount);
 
             // is an integer!

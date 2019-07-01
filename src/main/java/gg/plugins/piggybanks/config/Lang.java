@@ -15,8 +15,11 @@ public enum Lang {
     COMMAND_PLAYER_ONLY("{0} &cThe command or args specified can only be used by a player."),
     COMMAND_WITHDRAW("{0} &7You've moved &d{1} &7to a Piggy Bank&7."),
     COMMAND_INVALID("{0} &7That command couldn't be found."),
-    MAIN_COMMAND("{0} &7Use &d/{1} <amount> &7to withdraw money."),
+    MAIN_COMMAND("{0} &7Use &d/withdraw <amount> &7to withdraw money."),
     RELOAD_COMMAND("{0} &7Successfully reloaded the configuration file."),
+
+    PIGGY_BANK_NAME("&d{0}'s Piggy Bank"),
+    PIGGY_BANK_LORE("&a", "&7Balance: &f${1}", "&b", "&7Right click to redeem!", "&c")
     ;
 
     private String message;
