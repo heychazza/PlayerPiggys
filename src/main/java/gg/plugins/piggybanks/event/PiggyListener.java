@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
@@ -25,6 +26,13 @@ public class PiggyListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onPiggyUse(PlayerInteractEvent e) {
         Player player = e.getPlayer();
+
+        if (!Bukkit.getVersion().contains("1.8")) {
+            if (e.getHand() == EquipmentSlot.OFF_HAND) {
+                return; // off hand packet, ignore.
+            }
+        }
+
         NBTItem nbtItem = new NBTItem(e.hasItem() ? e.getItem() : new ItemStack(Material.AIR));
 
         if (nbtItem.getItem().getType() != Material.AIR && nbtItem.hasNBTData() && nbtItem.hasKey("created-by")) {
