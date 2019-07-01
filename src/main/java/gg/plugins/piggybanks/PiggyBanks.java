@@ -44,7 +44,7 @@ public class PiggyBanks extends JavaPlugin {
     }
 
     private void registerEvents() {
-        Bukkit.getPluginManager().registerEvents(new PiggyListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PiggyListener(this), this);
     }
 
     public void handleReload() {
