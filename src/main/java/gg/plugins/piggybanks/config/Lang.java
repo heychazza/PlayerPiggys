@@ -25,6 +25,8 @@ public enum Lang {
     REDEEM_SELF("{0} &7You've deposited &d${1} &7from your Piggy Bank to your balance."),
     REDEEM_OTHER("{0} &7You've deposited &d${1} &7from &f{2} &7to your balance."),
 
+    CONSOLE("Console")
+
     ;
 
     private String message;

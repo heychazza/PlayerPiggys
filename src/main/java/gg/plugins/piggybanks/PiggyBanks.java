@@ -5,7 +5,6 @@ import gg.plugins.piggybanks.command.util.CommandExecutor;
 import gg.plugins.piggybanks.command.util.CommandManager;
 import gg.plugins.piggybanks.config.Config;
 import gg.plugins.piggybanks.config.Lang;
-import gg.plugins.piggybanks.event.PiggyListener;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;

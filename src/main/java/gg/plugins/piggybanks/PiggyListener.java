@@ -1,8 +1,8 @@
-package gg.plugins.piggybanks.event;
+package gg.plugins.piggybanks;
 
 import de.tr7zw.itemnbtapi.NBTItem;
 import gg.plugins.piggybanks.PiggyBanks;
-import gg.plugins.piggybanks.api.BagRedeemEvent;
+import gg.plugins.piggybanks.api.PiggyRedeemEvent;
 import gg.plugins.piggybanks.config.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -40,9 +40,9 @@ public class PiggyListener implements Listener {
             OfflinePlayer owner = Bukkit.getOfflinePlayer(UUID.fromString(nbtItem.getString("created-by")));
             int value = nbtItem.getInteger("balance");
 
-            BagRedeemEvent bagRedeemEvent = new BagRedeemEvent(owner, value);
+            PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(owner, value);
 
-            if (bagRedeemEvent.isCancelled()) {
+            if (piggyRedeemEvent.isCancelled()) {
                 return;
             }
 

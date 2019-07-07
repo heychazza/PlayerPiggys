@@ -5,7 +5,7 @@ import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class BagRedeemEvent extends Event implements Cancellable {
+public class PiggyRedeemEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
@@ -13,7 +13,7 @@ public class BagRedeemEvent extends Event implements Cancellable {
     private OfflinePlayer player;
     private int amount;
 
-    public BagRedeemEvent(OfflinePlayer player, int amount) {
+    public PiggyRedeemEvent(OfflinePlayer player, int amount) {
         this.player = player;
         this.amount = amount;
     }

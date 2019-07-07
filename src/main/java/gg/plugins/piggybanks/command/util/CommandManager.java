@@ -68,7 +68,7 @@ public class CommandManager {
 
                 if (plugin.getEcon().has(player, amount)) {
                     plugin.getEcon().withdrawPlayer(player, amount);
-                    player.getInventory().addItem(PiggyBank.create(player, amount));
+                    player.getInventory().addItem(PiggyBank.create(player.getName(), player.getUniqueId(), amount));
                     Lang.COMMAND_WITHDRAW.send(player, Lang.PREFIX.asString(), amount);
                 } else {
                     Lang.INSUFFICIENT_FUNDS.send(player, Lang.PREFIX.asString());
