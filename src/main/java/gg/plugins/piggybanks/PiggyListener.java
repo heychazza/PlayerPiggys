@@ -1,7 +1,6 @@
 package gg.plugins.piggybanks;
 
 import de.tr7zw.itemnbtapi.NBTItem;
-import gg.plugins.piggybanks.PiggyBanks;
 import gg.plugins.piggybanks.api.PiggyRedeemEvent;
 import gg.plugins.piggybanks.config.Lang;
 import org.bukkit.Bukkit;
@@ -36,8 +35,11 @@ public class PiggyListener implements Listener {
 
         NBTItem nbtItem = new NBTItem(e.hasItem() ? e.getItem() : new ItemStack(Material.AIR));
 
-        if (nbtItem.getItem().getType() != Material.AIR && nbtItem.hasNBTData() && nbtItem.hasKey("created-by")) {
-            OfflinePlayer owner = Bukkit.getOfflinePlayer(UUID.fromString(nbtItem.getString("created-by")));
+        if (nbtItem.getItem().getType() != Material.AIR && nbtItem.hasNBTData() && nbtItem.hasKey("created-by-name")) {
+            UUID createdByUuid = UUID.fromString(nbtItem.getString("created-by-uuid"));
+            String createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? Lang.CONSOLE.asString() : Bukkit.getOfflinePlayer(createdByUuid).getName();
+            OfflinePlayer owner = createdBy.equalsIgnoreCase("CONSOLE") ? null : Bukkit.getOfflinePlayer(UUID.fromString(nbtItem.getString("created-by-uuid")));
+
             int value = nbtItem.getInteger("balance");
 
             PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(owner, value);
@@ -48,15 +50,15 @@ public class PiggyListener implements Listener {
 
             e.setCancelled(true);
 
-            if (player.getUniqueId() == owner.getUniqueId()) {
-                Lang.REDEEM_SELF.send(player, Lang.PREFIX.asString(), value);
+            if (createdBy.equalsIgnoreCase("CONSOLE") || (player.getUniqueId() != createdByUuid)) {
+                Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), createdBy, value);
             } else {
-                Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), owner.getName(), value);
+                Lang.REDEEM_SELF.send(player, Lang.PREFIX.asString(), value);
             }
 
             plugin.getEcon().depositPlayer(player, value);
 
-            if(e.getItem().getAmount() > 1)
+            if (e.getItem().getAmount() > 1)
                 e.getItem().setAmount(e.getItem().getAmount() - 1);
             else player.setItemInHand(null);
         }

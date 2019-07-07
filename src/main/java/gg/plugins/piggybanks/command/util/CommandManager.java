@@ -2,8 +2,10 @@ package gg.plugins.piggybanks.command.util;
 
 import gg.plugins.piggybanks.PiggyBanks;
 import gg.plugins.piggybanks.api.PiggyBank;
+import gg.plugins.piggybanks.command.GiveCommand;
 import gg.plugins.piggybanks.command.ReloadCommand;
 import gg.plugins.piggybanks.config.Lang;
+import gg.plugins.piggybanks.util.ArgUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -28,7 +30,8 @@ public class CommandManager {
         this.plugin = plugin;
 
         List<Class<?>> commandClasses = Arrays.asList(
-                ReloadCommand.class
+                ReloadCommand.class,
+                GiveCommand.class
         );
 
         for (Class clazz : commandClasses) {
@@ -60,27 +63,22 @@ public class CommandManager {
             return true;
         }
 
-        try {
-            int amount = Integer.parseInt(command);
+        // Withdraw Command
+        if (ArgUtil.isInt(command)) {
+            int amount = Integer.valueOf(command);
 
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-
                 if (plugin.getEcon().has(player, amount)) {
                     plugin.getEcon().withdrawPlayer(player, amount);
                     player.getInventory().addItem(PiggyBank.create(player.getName(), player.getUniqueId(), amount));
-                    Lang.COMMAND_WITHDRAW.send(player, Lang.PREFIX.asString(), amount);
+                    Lang.WITHDRAW_COMMAND.send(player, Lang.PREFIX.asString(), amount);
                 } else {
                     Lang.INSUFFICIENT_FUNDS.send(player, Lang.PREFIX.asString());
                 }
             } else {
-                Lang.COMMAND_PLAYER_ONLY.send(sender, Lang.PREFIX.asString());
+                Lang.PLAYER_ONLY.send(sender, Lang.PREFIX.asString());
             }
-
-            // is an integer!
-            return true;
-        } catch (NumberFormatException e) {
-            // not an integer!
         }
 
         if (commands.containsKey(command.toLowerCase())) {
@@ -89,12 +87,12 @@ public class CommandManager {
                 Command commandAnnotation = commandMethod.getAnnotation(Command.class);
 
                 if (!sender.hasPermission(commandAnnotation.permission()) && (sender instanceof Player)) {
-                    Lang.COMMAND_NO_PERMISSION.send(sender, Lang.PREFIX.asString());
+                    Lang.NO_PERMISSION.send(sender, Lang.PREFIX.asString());
                     return true;
                 }
 
                 if (commandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
-                    Lang.COMMAND_PLAYER_ONLY.send(sender, Lang.PREFIX.asString());
+                    Lang.PLAYER_ONLY.send(sender, Lang.PREFIX.asString());
                     return true;
                 }
 
@@ -103,10 +101,9 @@ public class CommandManager {
                 e.printStackTrace();
             }
         } else {
-            Lang.COMMAND_INVALID.send(sender, Lang.PREFIX.asString());
+            Lang.INVALID_PLAYER.send(sender, Lang.PREFIX.asString());
         }
 
         return true;
     }
-
 }

@@ -11,13 +11,17 @@ import java.util.stream.Collectors;
 
 public enum Lang {
     PREFIX("&8[&5PiggyBanks&8]"),
-    COMMAND_NO_PERMISSION("{0} &cYou don't have permissions to do that."),
-    COMMAND_PLAYER_ONLY("{0} &cThe command or args specified can only be used by a player."),
-    COMMAND_WITHDRAW("{0} &7You've moved &d{1} &7to a Piggy Bank&7."),
-    COMMAND_INVALID("{0} &7That command couldn't be found."),
+    NO_PERMISSION("{0} &cYou don't have permissions to do that."),
+    PLAYER_ONLY("{0} &cThe command or args specified can only be used by a player."),
+    INVALID_COMMAND("{0} &7That command couldn't be found."),
+    INVALID_PLAYER("{0} &7That player couldn't be found."),
+    INVALID_NUMBER("{0} &7You need to specify a number."),
     INSUFFICIENT_FUNDS("{0} &7You do not have enough money to withdraw that."),
+
     MAIN_COMMAND("{0} &7Use &d/withdraw <amount> &7to withdraw money."),
     RELOAD_COMMAND("{0} &7Successfully reloaded the configuration file."),
+    WITHDRAW_COMMAND("{0} &7You've moved &d{1} &7to a Piggy Bank&7."),
+    GIVE_COMMAND("{0} &7You've given &d{1} &7a piggy bank worth &f${2}&7."),
 
     PIGGY_BANK_NAME("&d{0}'s Piggy Bank"),
     PIGGY_BANK_LORE("&a", "&7Balance: &f${1}", "&b", "&7Right click to redeem!", "&c"),
@@ -25,9 +29,7 @@ public enum Lang {
     REDEEM_SELF("{0} &7You've deposited &d${1} &7from your Piggy Bank to your balance."),
     REDEEM_OTHER("{0} &7You've deposited &d${1} &7from &f{2} &7to your balance."),
 
-    CONSOLE("Console")
-
-    ;
+    CONSOLE("Console");
 
     private String message;
     private static Config config;

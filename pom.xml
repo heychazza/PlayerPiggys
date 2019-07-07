@@ -49,7 +49,7 @@
                                 <exclude>META-INF/*.DSA</exclude>
                                 <exclude>META-INF/*.RSA</exclude>
                                 <exclude>META-INF/LICENSE</exclude>
-                                <exclude>LICENSE</exclude> <!--if this is same as above, not required-->
+                                <exclude>LICENSE</exclude> <!-- Ensure dependency license isn't included (stops confusion) -->
                                 <exclude>/*.png</exclude>
                                 <exclude>/*.html</exclude>
                                 <exclude>/*.jpeg</exclude>
