@@ -19,7 +19,7 @@ public class PiggyBanks extends JavaPlugin {
         handleReload();
         registerCommands();
         registerEvents();
-        if(!registerEconomy()) {
+        if (!registerEconomy()) {
             getLogger().warning("The plugin 'Vault' isn't installed on the server.");
             getPluginLoader().disablePlugin(this);
         }
@@ -58,7 +58,7 @@ public class PiggyBanks extends JavaPlugin {
     }
 
     private boolean registerEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+        if (!getServer().getPluginManager().isPluginEnabled("Vault")) {
             return false;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);

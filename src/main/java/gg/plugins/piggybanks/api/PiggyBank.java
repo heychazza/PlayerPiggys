@@ -14,8 +14,10 @@ import java.util.UUID;
 public class PiggyBank {
 
     public static ItemStack create(String name, UUID uuid, int amount) {
+        String altName = name;
         if(name.equalsIgnoreCase("CONSOLE")) {
             name = Lang.CONSOLE.asString();
+            altName = "!CONSOLE!";
             uuid = UUID.randomUUID();
         }
 
@@ -23,11 +25,11 @@ public class PiggyBank {
         SkullMeta sm = (SkullMeta) is.getItemMeta();
         sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name));
         sm.setLore(new ArrayList<>(Arrays.asList(Lang.PIGGY_BANK_LORE.asString(name, amount).split("\n"))));
-        sm.setOwner(name);
+        sm.setOwner(altName);
         is.setItemMeta(sm);
 
         NBTItem nbtItem = new NBTItem(is);
-        nbtItem.setString("created-by-name", uuid.toString());
+        nbtItem.setString("created-by-name", altName);
         nbtItem.setString("created-by-uuid", uuid.toString());
         nbtItem.setInteger("balance", amount);
 

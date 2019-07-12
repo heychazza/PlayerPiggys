@@ -50,8 +50,11 @@ public class PiggyListener implements Listener {
 
             e.setCancelled(true);
 
-            if (createdBy.equalsIgnoreCase("CONSOLE") || (player.getUniqueId() != createdByUuid)) {
-                Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), createdBy, value);
+            player.sendMessage("Created By: " + createdBy);
+            player.sendMessage("Owner: " + owner);
+
+            if (createdBy.equalsIgnoreCase(Lang.CONSOLE.asString()) || (owner != null && owner.getUniqueId() != createdByUuid)) {
+                Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, createdBy);
             } else {
                 Lang.REDEEM_SELF.send(player, Lang.PREFIX.asString(), value);
             }

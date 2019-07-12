@@ -2,8 +2,8 @@ name: ${plugin}
 version: ${project.version}
 main: ${package}
 author: Chazza
-website: https://plugins.gg/
-softdepend: ["PlaceholderAPI", "WorldGuard"]
+website: https://plugins.gg
+softdepend: ["PlaceholderAPI", "WorldGuard", "Vault"]
 
 commands:
   piggybanks:

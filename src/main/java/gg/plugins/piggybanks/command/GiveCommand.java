@@ -18,7 +18,7 @@ public class GiveCommand {
         if(args.length == 2) {
 
             Player target = Bukkit.getPlayer(args[0]);
-            String createdByName = sender instanceof Player ? sender.getName() : "!CONSOLE!";
+            String createdByName = sender instanceof Player ? sender.getName() : "CONSOLE";
             UUID createdByUuid = sender instanceof Player ? ((Player) sender).getUniqueId() : UUID.randomUUID();
 
             if(target == null) {
