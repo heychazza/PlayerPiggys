@@ -6,7 +6,7 @@
 
     <groupId>gg.plugins</groupId>
     <artifactId>piggybanks</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1</version>
     <properties>
         <plugin>PiggyBanks</plugin>
         <package>${groupId}.${artifactId}.${plugin}</package>
@@ -27,15 +27,6 @@
 
         <plugins>
             <plugin>
-                <version>3.7.0</version>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.1.1</version>
@@ -49,10 +40,15 @@
                                 <exclude>META-INF/*.DSA</exclude>
                                 <exclude>META-INF/*.RSA</exclude>
                                 <exclude>META-INF/LICENSE</exclude>
-                                <exclude>LICENSE</exclude> <!-- Ensure dependency license isn't included (stops confusion) -->
+                                <exclude>META-INF/maven/**</exclude>
+                                <exclude>META-INF/MANIFEST.*</exclude>
+                                <exclude>META-INF/*</exclude>
+                                <exclude>LICENSE</exclude> <!--if this is same as above, not required-->
                                 <exclude>/*.png</exclude>
                                 <exclude>/*.html</exclude>
                                 <exclude>/*.jpeg</exclude>
+                                <exclude>*.xsd</exclude>
+                                <exclude>*.dtd</exclude>
                             </excludes>
                         </filter>
                     </filters>
@@ -61,7 +57,12 @@
                     <relocations>
                         <relocation>
                             <pattern>de.tr7zw.itemnbtapi</pattern>
-                            <shadedPattern>${project.groupId}.${project.artifactId}.nbtapi
+                            <shadedPattern>${project.groupId}.${project.artifactId}.apple
+                            </shadedPattern> <!-- Replace this -->
+                        </relocation>
+                        <relocation>
+                            <pattern>de.erethon.headlib</pattern>
+                            <shadedPattern>${project.groupId}.${project.artifactId}.headlib
                             </shadedPattern> <!-- Replace this -->
                         </relocation>
                     </relocations>
@@ -77,6 +78,9 @@
                                 <excludes>
                                     <exclude>org.jetbrains:annotations</exclude>
                                     <exclude>org.bstats:*</exclude>
+                                    <exclude>com.j256.ormlite:ormlite-core:jar</exclude>
+                                    <exclude>com.github.Chazza.Item-NBT-API:item-nbt-api:jar</exclude>
+                                    <exclude>com.github.Chazza.Item-NBT-API:item-nbt-api-plugin:jar</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>
@@ -93,11 +97,18 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
     <dependencies>
-
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -113,19 +124,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Chazza</groupId>
-            <artifactId>Item-NBT-API</artifactId>
-            <version>3d06992b2a</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sk89q</groupId>
-            <artifactId>worldguard</artifactId>
-            <version>6.1.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>de.erethon</groupId>
             <artifactId>headlib</artifactId>
             <version>3.0.1</version>
@@ -137,10 +135,13 @@
             <version>1.7</version>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
     <repositories>
+        <repository>
+            <id>dre-repo</id>
+            <url>https://erethon.de/repo/</url>
+        </repository>
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
@@ -156,10 +157,6 @@
         <repository>
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
-        </repository>
-        <repository>
-            <id>dre-repo</id>
-            <url>https://erethon.de/repo/</url>
         </repository>
     </repositories>
 </project>

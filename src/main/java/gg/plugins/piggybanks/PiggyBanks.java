@@ -1,6 +1,5 @@
 package gg.plugins.piggybanks;
 
-import de.tr7zw.itemnbtapi.NBTAPI;
 import gg.plugins.piggybanks.command.util.CommandExecutor;
 import gg.plugins.piggybanks.command.util.CommandManager;
 import gg.plugins.piggybanks.config.Config;
@@ -15,14 +14,11 @@ public class PiggyBanks extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        NBTAPI.setLogging(false);
+        saveDefaultConfig();
         handleReload();
         registerCommands();
         registerEvents();
-        if (!registerEconomy()) {
-            getLogger().warning("The plugin 'Vault' isn't installed on the server.");
-            getPluginLoader().disablePlugin(this);
-        }
+        registerEconomy();
     }
 
     @Override
@@ -48,7 +44,7 @@ public class PiggyBanks extends JavaPlugin {
 
     public void handleReload() {
         this.reloadConfig();
-        Lang.init(new Config(this, "lang.yml"));
+        Lang.init(new Config(this, "config.yml"));
     }
 
     private Economy econ = null;
@@ -57,16 +53,26 @@ public class PiggyBanks extends JavaPlugin {
         return econ;
     }
 
-    private boolean registerEconomy() {
+    private void registerEconomy() {
         if (!getServer().getPluginManager().isPluginEnabled("Vault")) {
-            return false;
+            getLogger().warning("You don't have Vault installed which is required.");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
-            return false;
+            getLogger().warning("You don't have any economy plugin installed.");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
         }
         econ = rsp.getProvider();
-        return econ != null;
+
+        if (econ == null) {
+            getLogger().warning("An error occurred with Vault.");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+        getLogger().warning("Successfully found Vault.");
     }
 
 }

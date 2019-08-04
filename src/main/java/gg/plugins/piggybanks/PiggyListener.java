@@ -1,8 +1,8 @@
 package gg.plugins.piggybanks;
 
-import de.tr7zw.itemnbtapi.NBTItem;
 import gg.plugins.piggybanks.api.PiggyRedeemEvent;
 import gg.plugins.piggybanks.config.Lang;
+import gg.plugins.piggybanks.nbt.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -33,14 +33,17 @@ public class PiggyListener implements Listener {
             }
         }
 
-        NBTItem nbtItem = new NBTItem(e.hasItem() ? e.getItem() : new ItemStack(Material.AIR));
+        ItemStack item = e.hasItem() ? e.getItem() : new ItemStack(Material.AIR);
 
-        if (nbtItem.getItem().getType() != Material.AIR && nbtItem.hasNBTData() && nbtItem.hasKey("created-by-name")) {
+        if(item.getType() == Material.AIR) return;
+        NBT nbtItem = NBT.get(item);
+
+        if (nbtItem != null && nbtItem.hasNBTData() && nbtItem.hasKey("created-by-name")) {
             UUID createdByUuid = UUID.fromString(nbtItem.getString("created-by-uuid"));
             String createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? Lang.CONSOLE.asString() : Bukkit.getOfflinePlayer(createdByUuid).getName();
             OfflinePlayer owner = createdBy.equalsIgnoreCase("CONSOLE") ? null : Bukkit.getOfflinePlayer(UUID.fromString(nbtItem.getString("created-by-uuid")));
 
-            int value = nbtItem.getInteger("balance");
+            int value = nbtItem.getInt("balance");
 
             PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(owner, value);
 
@@ -50,15 +53,13 @@ public class PiggyListener implements Listener {
 
             e.setCancelled(true);
 
-            player.sendMessage("Created By: " + createdBy);
-            player.sendMessage("Owner: " + owner);
-
-            if (createdBy.equalsIgnoreCase(Lang.CONSOLE.asString()) || (owner != null && owner.getUniqueId() != createdByUuid)) {
+            if (createdBy.equalsIgnoreCase(Lang.CONSOLE.asString())) {
+                Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, createdBy);
+            } else if (owner != null && (owner.getUniqueId() != createdByUuid)) {
                 Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, createdBy);
             } else {
                 Lang.REDEEM_SELF.send(player, Lang.PREFIX.asString(), value);
             }
-
             plugin.getEcon().depositPlayer(player, value);
 
             if (e.getItem().getAmount() > 1)

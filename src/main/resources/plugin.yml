@@ -3,7 +3,7 @@ version: ${project.version}
 main: ${package}
 author: Chazza
 website: https://plugins.gg
-softdepend: ["PlaceholderAPI", "WorldGuard", "Vault"]
+softdepend: ["Vault"]
 
 commands:
   piggybanks:

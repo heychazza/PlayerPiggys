@@ -29,7 +29,10 @@ public enum Lang {
     REDEEM_SELF("{0} &7You've deposited &d${1} &7from your Piggy Bank to your balance."),
     REDEEM_OTHER("{0} &7You've deposited &d${1} &7from &f{2} &7to your balance."),
 
-    CONSOLE("Console");
+    CONSOLE("Console"),
+
+    OUT_OF_RANGE("{0} &7Please choose an amount between &d{1} &7and &d{2}&7.")
+    ;
 
     private String message;
     private static Config config;

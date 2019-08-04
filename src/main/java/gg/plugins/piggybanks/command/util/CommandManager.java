@@ -64,12 +64,16 @@ public class CommandManager {
         }
 
         // Withdraw Command
-        if (ArgUtil.isInt(command)) {
-            int amount = Integer.valueOf(command);
+        if (ArgUtil.isInt(command) && args.length == 0) {
+            int amount = Integer.parseInt(command);
 
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (plugin.getEcon().has(player, amount)) {
+                    if (amount < plugin.getConfig().getInt("settings.min", 1) || amount > plugin.getConfig().getInt("settings.max", 50)) {
+                        Lang.OUT_OF_RANGE.send(player, Lang.PREFIX.asString(), plugin.getConfig().getInt("settings.min"), plugin.getConfig().getInt("settings.max"));
+                        return true;
+                    }
                     plugin.getEcon().withdrawPlayer(player, amount);
                     player.getInventory().addItem(PiggyBank.create(player.getName(), player.getUniqueId(), amount));
                     Lang.WITHDRAW_COMMAND.send(player, Lang.PREFIX.asString(), amount);
@@ -79,9 +83,7 @@ public class CommandManager {
             } else {
                 Lang.PLAYER_ONLY.send(sender, Lang.PREFIX.asString());
             }
-        }
-
-        if (commands.containsKey(command.toLowerCase())) {
+        } else if (commands.containsKey(command.toLowerCase())) {
             try {
                 Method commandMethod = commands.get(command.toLowerCase());
                 Command commandAnnotation = commandMethod.getAnnotation(Command.class);
