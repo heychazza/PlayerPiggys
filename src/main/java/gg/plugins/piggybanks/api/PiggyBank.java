@@ -3,6 +3,7 @@ package gg.plugins.piggybanks.api;
 import de.erethon.headlib.HeadLib;
 import gg.plugins.piggybanks.config.Lang;
 import gg.plugins.piggybanks.nbt.NBT;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -21,7 +22,8 @@ public class PiggyBank {
             uuid = UUID.randomUUID();
         }
 
-        ItemStack is = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
+        Material material = Integer.valueOf(Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].replace("v", "").replace("_", "").split("R", 2)[0]) >= 114 ? Material.getMaterial("LEGACY_SKULL_ITEM") : Material.getMaterial("SKULL_ITEM");
+        ItemStack is = new ItemStack(material, 1, (short) 3);
         SkullMeta sm = (SkullMeta) is.getItemMeta();
         sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name));
         sm.setLore(new ArrayList<>(Arrays.asList(Lang.PIGGY_BANK_LORE.asString(name, amount).split("\n"))));

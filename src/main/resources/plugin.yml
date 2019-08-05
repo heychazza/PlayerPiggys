@@ -3,7 +3,8 @@ version: ${project.version}
 main: ${package}
 author: Chazza
 website: https://plugins.gg
-softdepend: ["Vault"]
+depend: ["Vault"]
+api-version: "1.13"
 
 commands:
   piggybanks:

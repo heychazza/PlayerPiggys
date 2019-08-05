@@ -5,7 +5,6 @@ import gg.plugins.piggybanks.config.Lang;
 import gg.plugins.piggybanks.nbt.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,36 +34,39 @@ public class PiggyListener implements Listener {
 
         ItemStack item = e.hasItem() ? e.getItem() : new ItemStack(Material.AIR);
 
-        if(item.getType() == Material.AIR) return;
+        if (item.getType() == Material.AIR) return;
         NBT nbtItem = NBT.get(item);
 
         if (nbtItem != null && nbtItem.hasNBTData() && nbtItem.hasKey("created-by-name")) {
             UUID createdByUuid = UUID.fromString(nbtItem.getString("created-by-uuid"));
-            String createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? Lang.CONSOLE.asString() : Bukkit.getOfflinePlayer(createdByUuid).getName();
-            OfflinePlayer owner = createdBy.equalsIgnoreCase("CONSOLE") ? null : Bukkit.getOfflinePlayer(UUID.fromString(nbtItem.getString("created-by-uuid")));
+
+            UUID createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? null : createdByUuid;
 
             int value = nbtItem.getInt("balance");
 
-            PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(owner, value);
-
-            if (piggyRedeemEvent.isCancelled()) {
-                return;
-            }
-
             e.setCancelled(true);
-
-            if (createdBy.equalsIgnoreCase(Lang.CONSOLE.asString())) {
-                Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, createdBy);
-            } else if (owner != null && (owner.getUniqueId() != createdByUuid)) {
-                Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, createdBy);
-            } else {
-                Lang.REDEEM_SELF.send(player, Lang.PREFIX.asString(), value);
-            }
-            plugin.getEcon().depositPlayer(player, value);
-
-            if (e.getItem().getAmount() > 1)
-                e.getItem().setAmount(e.getItem().getAmount() - 1);
-            else player.setItemInHand(null);
+            PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value);
+            Bukkit.getPluginManager().callEvent(piggyRedeemEvent);
         }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onPiggyRedeem(PiggyRedeemEvent e) {
+        Player player = e.getPlayer();
+        UUID createdBy = e.getOwnedBy();
+        int value = e.getAmount();
+
+        if (createdBy == null) {
+            Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, Lang.CONSOLE.asString());
+        } else if (player.getUniqueId() != createdBy) {
+            Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, Bukkit.getOfflinePlayer(createdBy).getName());
+        } else {
+            Lang.REDEEM_SELF.send(player, Lang.PREFIX.asString(), value);
+        }
+        plugin.getEcon().depositPlayer(player, value);
+
+        if (player.getItemInHand().getAmount() > 1)
+            player.getItemInHand().setAmount(player.getItemInHand().getAmount() - 1);
+        else player.setItemInHand(null);
     }
 }

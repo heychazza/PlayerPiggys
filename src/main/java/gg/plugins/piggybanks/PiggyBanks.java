@@ -44,7 +44,7 @@ public class PiggyBanks extends JavaPlugin {
 
     public void handleReload() {
         this.reloadConfig();
-        Lang.init(new Config(this, "config.yml"));
+        Lang.init(this);
     }
 
     private Economy econ = null;
@@ -55,7 +55,7 @@ public class PiggyBanks extends JavaPlugin {
 
     private void registerEconomy() {
         if (!getServer().getPluginManager().isPluginEnabled("Vault")) {
-            getLogger().warning("You don't have Vault installed which is required.");
+            getLogger().warning("The plugin 'Vault' is required but isn't installed.");
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }

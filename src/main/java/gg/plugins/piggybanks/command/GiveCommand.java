@@ -31,7 +31,7 @@ public class GiveCommand {
                 return;
             }
 
-            int amount = Integer.valueOf(args[1]);
+            int amount = Integer.parseInt(args[1]);
 
             target.getInventory().addItem(PiggyBank.create(createdByName, createdByUuid, amount));
             Lang.GIVE_COMMAND.send(sender, Lang.PREFIX.asString(), target.getName(), amount);

@@ -1,5 +1,6 @@
 package gg.plugins.piggybanks.config;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -59,4 +60,10 @@ public class Config {
             this.plugin.getLogger().log(Level.SEVERE, "Could not save config to " + this.configFile, ex);
         }
     }
+
+
+    private static String getVersion() {
+        return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+    }
+
 }

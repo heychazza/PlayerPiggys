@@ -1,25 +1,33 @@
 package gg.plugins.piggybanks.api;
 
-import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import java.util.UUID;
 
 public class PiggyRedeemEvent extends Event implements Cancellable {
 
     private static final HandlerList handlers = new HandlerList();
     private boolean cancelled;
 
-    private OfflinePlayer player;
+    private Player player;
+    private UUID ownedBy;
     private int amount;
 
-    public PiggyRedeemEvent(OfflinePlayer player, int amount) {
+    public PiggyRedeemEvent(Player player, UUID ownedBy, int amount) {
         this.player = player;
+        this.ownedBy = ownedBy;
         this.amount = amount;
     }
 
-    public OfflinePlayer getPlayer() {
+    public Player getPlayer() {
         return player;
+    }
+
+    public UUID getOwnedBy() {
+        return ownedBy;
     }
 
     public int getAmount() {
