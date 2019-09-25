@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>gg.plugins</groupId>
+    <groupId>net.chazza</groupId>
     <artifactId>piggybanks</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.5</version>
     <properties>
         <plugin>PiggyBanks</plugin>
         <package>${groupId}.${artifactId}.${plugin}</package>
@@ -26,6 +26,37 @@
         </resources>
 
         <plugins>
+            <plugin>
+                <groupId>com.zelix.plugins</groupId>
+                <artifactId>zkm-plugin</artifactId>
+                <version>1.0.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.zelix.plugins</groupId>
+                        <artifactId>ZKM</artifactId>
+                        <version>10.0.0</version>
+                        <scope>system</scope>
+                        <systemPath>D:/Documents/Development/ZKM/ZKM.jar</systemPath>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>obfuscate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Will be used to inject values into the plugin but will not be in project properties -->
+                    <isSkip>false</isSkip>
+                    <scriptFile>script.txt</scriptFile>
+                    <classpathLibs>
+                        <lib>${java.home}/lib/rt.jar</lib>
+                    </classpathLibs>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -55,16 +86,6 @@
                     <dependencyReducedPomLocation>${project.build.directory}/dependency-reduced-pom.xml
                     </dependencyReducedPomLocation>
                     <relocations>
-                        <relocation>
-                            <pattern>de.tr7zw.itemnbtapi</pattern>
-                            <shadedPattern>${project.groupId}.${project.artifactId}.apple
-                            </shadedPattern> <!-- Replace this -->
-                        </relocation>
-                        <relocation>
-                            <pattern>de.erethon.headlib</pattern>
-                            <shadedPattern>${project.groupId}.${project.artifactId}.headlib
-                            </shadedPattern> <!-- Replace this -->
-                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -121,6 +142,7 @@
             <groupId>de.erethon</groupId>
             <artifactId>headlib</artifactId>
             <version>3.0.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

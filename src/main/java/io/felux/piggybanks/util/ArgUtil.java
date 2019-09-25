@@ -1,4 +1,4 @@
-package gg.plugins.piggybanks.util;
+package io.felux.piggybanks.util;
 
 public class ArgUtil {
 

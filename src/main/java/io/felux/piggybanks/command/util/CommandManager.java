@@ -1,11 +1,11 @@
-package gg.plugins.piggybanks.command.util;
+package io.felux.piggybanks.command.util;
 
-import gg.plugins.piggybanks.PiggyBanks;
-import gg.plugins.piggybanks.api.PiggyBank;
-import gg.plugins.piggybanks.command.GiveCommand;
-import gg.plugins.piggybanks.command.ReloadCommand;
-import gg.plugins.piggybanks.config.Lang;
-import gg.plugins.piggybanks.util.ArgUtil;
+import io.felux.piggybanks.PiggyBanks;
+import io.felux.piggybanks.api.PiggyBank;
+import io.felux.piggybanks.command.GiveCommand;
+import io.felux.piggybanks.command.ReloadCommand;
+import io.felux.piggybanks.config.Lang;
+import io.felux.piggybanks.util.ArgUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

@@ -1,0 +1,36 @@
+classpath     "%classpathLibs%"
+              "%compileArtifactPath%"
+              "%pluginArtifactPath%";
+open          "%project.build.directory%%file.separator%%project.build.finalName%.%project.packaging%";
+
+stringEncryptionExclude
+              io.felux.piggybanks.LevellingTools;
+
+trimExclude   *.* @*.EventHandler *(*);
+
+exclude       io.felux.piggybanks. and
+              PiggyBanks and
+
+              io.felux.piggybanks.api. and
+              io.felux.piggybanks.api.* and
+              io.felux.piggybanks.api.* * and
+              io.felux.piggybanks.api.* * (*) and
+
+              io.felux.piggybanks.storage.*.*PlayerData and
+              io.felux.piggybanks.storage.*.*PlayerData * and
+              io.felux.piggybanks.storage.*.*PlayerData * (*)
+              ;
+
+obfuscate   obfuscateFlow=extraAggressive
+            encryptStringLiterals=enhanced
+            mixedCaseClassNames=false
+            aggressiveMethodRenaming=true
+            randomize=true
+            localVariables=delete
+            lineNumbers=scramble
+            autoReflectionHandling=normal
+            obfuscateReferences=none
+            obfuscateReferenceStructures=inSpecialClass
+            lineNumbers=scramble;
+
+saveAll     "%project.build.directory%";

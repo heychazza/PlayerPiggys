@@ -1,6 +1,6 @@
-package gg.plugins.piggybanks.config;
+package io.felux.piggybanks.config;
 
-import gg.plugins.piggybanks.PiggyBanks;
+import io.felux.piggybanks.PiggyBanks;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;

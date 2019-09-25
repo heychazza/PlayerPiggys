@@ -1,4 +1,4 @@
-package gg.plugins.piggybanks.command.util;
+package io.felux.piggybanks.command.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

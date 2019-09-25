@@ -1,4 +1,4 @@
-package gg.plugins.piggybanks.nbt;
+package io.felux.piggybanks.nbt;
 
 import org.bukkit.Bukkit;
 

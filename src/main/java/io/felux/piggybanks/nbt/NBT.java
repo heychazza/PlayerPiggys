@@ -1,6 +1,6 @@
-package gg.plugins.piggybanks.nbt;
+package io.felux.piggybanks.nbt;
 
-import gg.plugins.piggybanks.PiggyBanks;
+import io.felux.piggybanks.PiggyBanks;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;

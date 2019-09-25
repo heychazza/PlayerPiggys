@@ -1,13 +1,15 @@
-package gg.plugins.piggybanks;
+package io.felux.piggybanks;
 
-import gg.plugins.piggybanks.api.PiggyRedeemEvent;
-import gg.plugins.piggybanks.config.Lang;
-import gg.plugins.piggybanks.nbt.NBT;
+import io.felux.piggybanks.api.PiggyRedeemEvent;
+import io.felux.piggybanks.config.Lang;
+import io.felux.piggybanks.nbt.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -20,9 +22,10 @@ public class PiggyListener implements Listener {
 
     public PiggyListener(PiggyBanks plugin) {
         this.plugin = plugin;
+        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
-    @EventHandler(ignoreCancelled = true)
+    @EventHandler
     public void onPiggyUse(PlayerInteractEvent e) {
         Player player = e.getPlayer();
 
@@ -32,21 +35,36 @@ public class PiggyListener implements Listener {
             }
         }
 
-        ItemStack item = e.hasItem() ? e.getItem() : new ItemStack(Material.AIR);
+        if (e.getAction() == Action.RIGHT_CLICK_AIR) {
+            ItemStack item = e.hasItem() ? e.getItem() : null;
+
+            if (item == null) return;
+            NBT nbtItem = NBT.get(item);
+
+            if (nbtItem != null && nbtItem.hasNBTData() && nbtItem.hasKey("created-by-name")) {
+                UUID createdByUuid = UUID.fromString(nbtItem.getString("created-by-uuid"));
+
+                UUID createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? null : createdByUuid;
+
+                int value = nbtItem.getInt("balance");
+
+                e.setCancelled(true);
+                PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value);
+                Bukkit.getPluginManager().callEvent(piggyRedeemEvent);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPiggyUse(BlockPlaceEvent e) {
+        Player player = e.getPlayer();
+
+        ItemStack item = e.getItemInHand();
 
         if (item.getType() == Material.AIR) return;
         NBT nbtItem = NBT.get(item);
-
         if (nbtItem != null && nbtItem.hasNBTData() && nbtItem.hasKey("created-by-name")) {
-            UUID createdByUuid = UUID.fromString(nbtItem.getString("created-by-uuid"));
-
-            UUID createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? null : createdByUuid;
-
-            int value = nbtItem.getInt("balance");
-
             e.setCancelled(true);
-            PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value);
-            Bukkit.getPluginManager().callEvent(piggyRedeemEvent);
         }
     }
 

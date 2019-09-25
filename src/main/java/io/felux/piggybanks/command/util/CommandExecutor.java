@@ -1,6 +1,6 @@
-package gg.plugins.piggybanks.command.util;
+package io.felux.piggybanks.command.util;
 
-import gg.plugins.piggybanks.PiggyBanks;
+import io.felux.piggybanks.PiggyBanks;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 

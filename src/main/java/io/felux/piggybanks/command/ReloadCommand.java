@@ -1,8 +1,8 @@
-package gg.plugins.piggybanks.command;
+package io.felux.piggybanks.command;
 
-import gg.plugins.piggybanks.PiggyBanks;
-import gg.plugins.piggybanks.command.util.Command;
-import gg.plugins.piggybanks.config.Lang;
+import io.felux.piggybanks.PiggyBanks;
+import io.felux.piggybanks.command.util.Command;
+import io.felux.piggybanks.config.Lang;
 import org.bukkit.command.CommandSender;
 
 public class ReloadCommand {

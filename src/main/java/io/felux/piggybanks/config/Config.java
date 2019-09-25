@@ -1,4 +1,4 @@
-package gg.plugins.piggybanks.config;
+package io.felux.piggybanks.config;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

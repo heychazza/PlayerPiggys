@@ -1,4 +1,4 @@
-package gg.plugins.piggybanks.api;
+package io.felux.piggybanks.api;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

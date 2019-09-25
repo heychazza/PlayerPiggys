@@ -1,8 +1,8 @@
-package gg.plugins.piggybanks.api;
+package io.felux.piggybanks.api;
 
 import de.erethon.headlib.HeadLib;
-import gg.plugins.piggybanks.config.Lang;
-import gg.plugins.piggybanks.nbt.NBT;
+import io.felux.piggybanks.config.Lang;
+import io.felux.piggybanks.nbt.NBT;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
