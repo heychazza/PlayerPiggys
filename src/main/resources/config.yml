@@ -1,5 +1,13 @@
 # PiggyBanks
 
 settings:
-      min: 1
-      max: 500000
+  min: 1
+  max: 500000
+
+
+drop:
+  enabled: true
+  chance: 50 # percent
+  money:
+    min: 1000
+    max: 100000

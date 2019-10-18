@@ -4,12 +4,12 @@ classpath     "%classpathLibs%"
 open          "%project.build.directory%%file.separator%%project.build.finalName%.%project.packaging%";
 
 stringEncryptionExclude
-              io.felux.piggybanks.LevellingTools;
+              io.felux.piggybanks.PiggyBanks;
 
 trimExclude   *.* @*.EventHandler *(*);
 
 exclude       io.felux.piggybanks. and
-              PiggyBanks and
+              io.felux.piggybanks.PiggyBanks and
 
               io.felux.piggybanks.api. and
               io.felux.piggybanks.api.* and

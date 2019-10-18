@@ -3,12 +3,15 @@ package io.felux.piggybanks;
 import io.felux.piggybanks.command.util.CommandExecutor;
 import io.felux.piggybanks.command.util.CommandManager;
 import io.felux.piggybanks.config.Lang;
+import io.felux.piggybanks.listener.DeathListener;
+import io.felux.piggybanks.listener.PiggyListener;
 import io.felux.piggybanks.maven.LibraryLoader;
 import io.felux.piggybanks.maven.MavenLibrary;
 import io.felux.piggybanks.maven.Repository;
 import io.felux.piggybanks.util.Common;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,6 +31,7 @@ public class PiggyBanks extends JavaPlugin {
 
         Common.loading("events");
         new PiggyListener(this);
+        new DeathListener(this);
 
         handleReload();
 
@@ -41,7 +45,8 @@ public class PiggyBanks extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        HandlerList.unregisterAll(this);
+        getServer().getScheduler().cancelTasks(this);
     }
 
     private void getBanner() {

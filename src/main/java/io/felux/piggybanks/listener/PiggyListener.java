@@ -1,5 +1,6 @@
-package io.felux.piggybanks;
+package io.felux.piggybanks.listener;
 
+import io.felux.piggybanks.PiggyBanks;
 import io.felux.piggybanks.api.PiggyRedeemEvent;
 import io.felux.piggybanks.config.Lang;
 import io.felux.piggybanks.nbt.NBT;
