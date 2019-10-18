@@ -5,7 +5,7 @@ settings:
   max: 500000
 
 
-drop:
+drops:
   enabled: true
   chance: 50 # percent
   money:
