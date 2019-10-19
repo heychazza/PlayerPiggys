@@ -36,7 +36,7 @@ public class PiggyListener implements Listener {
             }
         }
 
-        if (e.getAction() == Action.RIGHT_CLICK_AIR) {
+        if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             ItemStack item = e.hasItem() ? e.getItem() : null;
 
             if (item == null) return;
@@ -65,7 +65,15 @@ public class PiggyListener implements Listener {
         if (item.getType() == Material.AIR) return;
         NBT nbtItem = NBT.get(item);
         if (nbtItem != null && nbtItem.hasNBTData() && nbtItem.hasKey("created-by-name")) {
+            UUID createdByUuid = UUID.fromString(nbtItem.getString("created-by-uuid"));
+
+            UUID createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? null : createdByUuid;
+
+            int value = nbtItem.getInt("balance");
+
             e.setCancelled(true);
+            PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value);
+            Bukkit.getPluginManager().callEvent(piggyRedeemEvent);
         }
     }
 

@@ -3,7 +3,7 @@ package io.felux.piggybanks.api;
 import de.erethon.headlib.HeadLib;
 import io.felux.piggybanks.config.Lang;
 import io.felux.piggybanks.nbt.NBT;
-import org.bukkit.Bukkit;
+import io.felux.piggybanks.util.Common;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -22,7 +22,10 @@ public class PiggyBank {
             uuid = UUID.randomUUID();
         }
 
-        Material material = Integer.valueOf(Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].replace("v", "").replace("_", "").split("R", 2)[0]) >= 114 ? Material.getMaterial("LEGACY_SKULL_ITEM") : Material.getMaterial("SKULL_ITEM");
+        Material material = Common.getVersion() >= 113 ? Material.getMaterial("LEGACY_SKULL_ITEM") : Material.getMaterial("SKULL_ITEM");
+
+        if(material == null) material = Material.valueOf("SKULL_ITEM");
+
         ItemStack is = new ItemStack(material, 1, (short) 3);
         SkullMeta sm = (SkullMeta) is.getItemMeta();
         sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name));
