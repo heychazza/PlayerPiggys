@@ -1,18 +1,22 @@
 package io.felux.piggybanks.api;
 
 import de.erethon.headlib.HeadLib;
+import io.felux.piggybanks.PiggyBanks;
 import io.felux.piggybanks.config.Lang;
 import io.felux.piggybanks.nbt.NBT;
 import io.felux.piggybanks.util.Common;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
 public class PiggyBank {
+
+    private static PiggyBanks plugin = (PiggyBanks) JavaPlugin.getProvidingPlugin(PiggyBanks.class);
 
     public static ItemStack create(String name, UUID uuid, int amount) {
         String altName = name;
@@ -40,7 +44,11 @@ public class PiggyBank {
             nbtItem.setInt("balance", amount);
         }
 
-        String texture = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTk4ZGY0MmY0NzdmMjEzZmY1ZTlkN2ZhNWE0Y2M0YTY5ZjIwZDljZWYyYjkwYzRhZTRmMjliZDE3Mjg3YjUifX19";
-        return HeadLib.setSkullOwner(nbtItem.apply(is), uuid, texture);
+        String texture = plugin.getConfig().getString("skull", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTk4ZGY0MmY0NzdmMjEzZmY1ZTlkN2ZhNWE0Y2M0YTY5ZjIwZDljZWYyYjkwYzRhZTRmMjliZDE3Mjg3YjUifX19");
+        if (nbtItem != null) {
+            return HeadLib.setSkullOwner(nbtItem.apply(is), uuid, texture);
+        }
+
+        return null;
     }
 }
