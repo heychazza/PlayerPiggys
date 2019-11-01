@@ -25,7 +25,7 @@ public class GiveCommand {
                 return;
             }
 
-            if(!ArgUtil.isInt(args[1])) {
+            if(!ArgUtil.isLong(args[1])) {
                 Lang.INVALID_NUMBER.send(sender, Lang.PREFIX.asString());
                 return;
             }

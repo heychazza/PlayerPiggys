@@ -47,7 +47,7 @@ public class PiggyListener implements Listener {
 
                 UUID createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? null : createdByUuid;
 
-                int value = nbtItem.getInt("balance");
+                long value = nbtItem.getLong("balance");
 
                 e.setCancelled(true);
                 PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value);
@@ -69,7 +69,7 @@ public class PiggyListener implements Listener {
 
             UUID createdBy = nbtItem.getString("created-by-name").equalsIgnoreCase("!CONSOLE!") ? null : createdByUuid;
 
-            int value = nbtItem.getInt("balance");
+            long value = nbtItem.getLong("balance");
 
             e.setCancelled(true);
             PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value);
@@ -81,15 +81,21 @@ public class PiggyListener implements Listener {
     public void onPiggyRedeem(PiggyRedeemEvent e) {
         Player player = e.getPlayer();
         UUID createdBy = e.getOwnedBy();
-        int value = e.getAmount();
+        Long value = e.getAmount();
 
-        if (createdBy == null) {
+        System.out.println("player.getUniqueId() = " + player.getUniqueId());
+        System.out.println("createdBy = " + createdBy);
+        System.out.println("player.getUniqueId() == createdBy = " + (player.getUniqueId() == createdBy));
+
+        if(createdBy == null) {
+            // Console
             Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, Lang.CONSOLE.asString());
-        } else if (player.getUniqueId() != createdBy) {
-            Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, Bukkit.getOfflinePlayer(createdBy).getName());
-        } else {
+        } else if(player.getUniqueId().equals(createdBy)) {
             Lang.REDEEM_SELF.send(player, Lang.PREFIX.asString(), value);
+        } else {
+            Lang.REDEEM_OTHER.send(player, Lang.PREFIX.asString(), value, Bukkit.getOfflinePlayer(createdBy).getName());
         }
+
         plugin.getEcon().depositPlayer(player, value);
 
         if (player.getItemInHand().getAmount() > 1)

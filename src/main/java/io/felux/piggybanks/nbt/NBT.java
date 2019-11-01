@@ -129,6 +129,29 @@ public class NBT {
         }
     }
 
+    public Long getLong(String key) {
+        try {
+            Method m = tagCompoundClass.getMethod("getLong", String.class);
+            m.setAccessible(true);
+            Object r = m.invoke(this.tagCompound, key);
+            m.setAccessible(false);
+            return r instanceof Long ? (Long) r : null;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public void setLong(String key, Long value) {
+        try {
+            Method m = tagCompoundClass.getMethod("setLong", String.class, long.class);
+            m.setAccessible(true);
+            m.invoke(this.tagCompound, key, value);
+            m.setAccessible(false);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     public void setShort(String key, Short value) {
         try {
             Method m = tagCompoundClass.getMethod("setShort", String.class, short.class);

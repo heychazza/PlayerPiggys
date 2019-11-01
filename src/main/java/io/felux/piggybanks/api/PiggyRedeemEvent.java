@@ -14,9 +14,9 @@ public class PiggyRedeemEvent extends Event implements Cancellable {
 
     private Player player;
     private UUID ownedBy;
-    private int amount;
+    private long amount;
 
-    public PiggyRedeemEvent(Player player, UUID ownedBy, int amount) {
+    public PiggyRedeemEvent(Player player, UUID ownedBy, long amount) {
         this.player = player;
         this.ownedBy = ownedBy;
         this.amount = amount;
@@ -30,7 +30,7 @@ public class PiggyRedeemEvent extends Event implements Cancellable {
         return ownedBy;
     }
 
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 

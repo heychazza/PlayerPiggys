@@ -64,14 +64,14 @@ public class CommandManager {
         }
 
         // Withdraw Command
-        if (ArgUtil.isInt(command) && args.length == 0) {
-            int amount = Integer.parseInt(command);
+        if (ArgUtil.isLong(command) && args.length == 0) {
+            long amount = Long.parseLong(command);
 
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (plugin.getEcon().has(player, amount)) {
-                    if (amount < plugin.getConfig().getInt("settings.min", 1) || amount > plugin.getConfig().getInt("settings.max", 50)) {
-                        Lang.OUT_OF_RANGE.send(player, Lang.PREFIX.asString(), plugin.getConfig().getInt("settings.min"), plugin.getConfig().getInt("settings.max"));
+                    if (amount < plugin.getConfig().getLong("settings.min", 1) || amount > plugin.getConfig().getLong("settings.max", 50)) {
+                        Lang.OUT_OF_RANGE.send(player, Lang.PREFIX.asString(), plugin.getConfig().getLong("settings.min"), plugin.getConfig().getLong("settings.max"));
                         return true;
                     }
                     plugin.getEcon().withdrawPlayer(player, amount);

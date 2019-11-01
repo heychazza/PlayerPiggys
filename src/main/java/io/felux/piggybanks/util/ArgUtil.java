@@ -2,9 +2,9 @@ package io.felux.piggybanks.util;
 
 public class ArgUtil {
 
-    public static boolean isInt(String arg) {
+    public static boolean isLong(String arg) {
         try {
-            Integer.parseInt(arg);
+            Long.parseLong(arg);
             return true;
         } catch (NumberFormatException e) {
             return false;
