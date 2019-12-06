@@ -9,6 +9,7 @@ import io.felux.piggybanks.maven.LibraryLoader;
 import io.felux.piggybanks.maven.MavenLibrary;
 import io.felux.piggybanks.maven.Repository;
 import io.felux.piggybanks.util.Common;
+import io.felux.piggybanks.util.Metrics;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
@@ -38,6 +39,8 @@ public class PiggyBanks extends JavaPlugin {
         Common.loading("commands");
         registerCommands();
 
+        Common.loading("metrics");
+        new Metrics(this);
 
         Common.sendConsoleMessage(" ");
         getLogger().info("Successfully enabled in " + (System.currentTimeMillis() - start) + "ms.");
