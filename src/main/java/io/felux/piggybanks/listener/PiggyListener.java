@@ -77,15 +77,12 @@ public class PiggyListener implements Listener {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler(ignoreCancelled = true)
     public void onPiggyRedeem(PiggyRedeemEvent e) {
         Player player = e.getPlayer();
         UUID createdBy = e.getOwnedBy();
         Long value = e.getAmount();
-
-        System.out.println("player.getUniqueId() = " + player.getUniqueId());
-        System.out.println("createdBy = " + createdBy);
-        System.out.println("player.getUniqueId() == createdBy = " + (player.getUniqueId() == createdBy));
 
         if(createdBy == null) {
             // Console

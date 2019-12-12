@@ -23,8 +23,10 @@ exclude       io.felux.piggybanks. and
 
 obfuscate   obfuscateFlow=extraAggressive
             encryptStringLiterals=enhanced
-            mixedCaseClassNames=false
+            mixedCaseClassNames=true
             aggressiveMethodRenaming=true
+            hideFieldNames=true
+            uniqueClassNames=true
             randomize=true
             localVariables=delete
             lineNumbers=scramble
