@@ -16,7 +16,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-@MavenLibrary(groupId = "com.github.DRE2N.headlib", artifactId = "HeadLib", version = "30ceaa7f3a", repo = @Repository(url = "https://jitpack.io"))
+@MavenLibrary(groupId = "com.github.DRE2N.headlib", artifactId = "HeadLib", version = "-SNAPSHOT", repo = @Repository(url = "https://jitpack.io"))
 public class PiggyBanks extends JavaPlugin {
     private CommandManager commandManager;
 
