@@ -4,21 +4,21 @@ classpath     "%classpathLibs%"
 open          "%project.build.directory%%file.separator%%project.build.finalName%.%project.packaging%";
 
 stringEncryptionExclude
-              io.felux.piggybanks.PiggyBanks;
+              com.codeitforyou.piggys.CIFYPiggys;
 
 trimExclude   *.* @*.EventHandler *(*);
 
-exclude       io.felux.piggybanks. and
-              io.felux.piggybanks.PiggyBanks and
+exclude       com.codeitforyou.piggys. and
+              com.codeitforyou.piggys.CIFYPiggys and
 
-              io.felux.piggybanks.api. and
-              io.felux.piggybanks.api.* and
-              io.felux.piggybanks.api.* * and
-              io.felux.piggybanks.api.* * (*) and
+              com.codeitforyou.piggys.api. and
+              com.codeitforyou.piggys.api.* and
+              com.codeitforyou.piggys.api.* * and
+              com.codeitforyou.piggys.api.* * (*) and
 
-              io.felux.piggybanks.storage.*.*PlayerData and
-              io.felux.piggybanks.storage.*.*PlayerData * and
-              io.felux.piggybanks.storage.*.*PlayerData * (*)
+              com.codeitforyou.piggys.storage.*.*PlayerData and
+              com.codeitforyou.piggys.storage.*.*PlayerData * and
+              com.codeitforyou.piggys.storage.*.*PlayerData * (*)
               ;
 
 obfuscate   obfuscateFlow=extraAggressive
@@ -28,11 +28,11 @@ obfuscate   obfuscateFlow=extraAggressive
             hideFieldNames=true
             uniqueClassNames=true
             randomize=true
-            localVariables=delete
+            localVariables=obfuscate
             lineNumbers=scramble
             autoReflectionHandling=normal
-            obfuscateReferences=none
-            obfuscateReferenceStructures=inSpecialClass
-            lineNumbers=scramble;
+            lineNumbers=scramble
+            collapsePackagesWithDefault="$$Skid$$"
+            newNamesPrefix="$$GL_HAVE_FUN_SKID$$";
 
 saveAll     "%project.build.directory%";

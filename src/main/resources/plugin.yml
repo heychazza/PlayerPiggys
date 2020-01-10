@@ -1,20 +1,24 @@
-name: ${plugin}
+name: ${project.name}
 version: ${project.version}
-main: ${package}
-author: "Felux"
-website: https://felux.io/
+main: ${package}.${project.name}
+author: CodeItForYou
+website: ${website}
 depend: ["Vault"]
 api-version: "1.13"
 
 commands:
-  piggybanks:
-    description: PiggyBanks commands
+  cifypiggys:
+    description: CIFYPiggys commands
     usage: ""
-    aliases: ["pbanks", "piggy", "withdraw"]
+    aliases: ["piggybanks", "pbanks", "piggy", "piggys"]
+  withdraw:
+    description: CIFYPiggys commands
+    usage: ""
+    aliases: ["deposit"]
 
 permissions:
-  piggybanks.reload:
+  cifypiggys.reload:
     description: Reload the configuration file into memory
-  piggybanks.withdraw:
+  cifypiggys.withdraw:
     description: Ability to create a piggybank
     default: true

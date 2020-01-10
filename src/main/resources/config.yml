@@ -1,9 +1,17 @@
-# PiggyBanks
+#     ____  _
+#    / __ \(_)___ _____ ___  _______
+#   / /_/ / / __ `/ __ `/ / / / ___/
+#  / ____/ / /_/ / /_/ / /_/ (__  )
+# /_/   /_/\__, /\__, /\__, /____/
+#         /____//____//____/
+#
+# ${project.name} - v{project.version}
+# Developed by https://codeitforyou.com/
+#
 
 settings:
   min: 1
   max: 500000
-
 
 drops:
   enabled: true
