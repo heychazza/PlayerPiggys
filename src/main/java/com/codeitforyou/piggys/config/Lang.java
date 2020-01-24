@@ -1,6 +1,6 @@
 package com.codeitforyou.piggys.config;
 
-import com.codeitforyou.piggys.CIFYPiggys;
+import com.codeitforyou.piggys.Piggys;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -55,8 +55,8 @@ public enum Lang {
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 
-    public static boolean init(CIFYPiggys CIFYPiggys) {
-        Lang.c = CIFYPiggys.getConfig();
+    public static boolean init(Piggys Piggys) {
+        Lang.c = Piggys.getConfig();
         for (final Lang value : values()) {
             if (value.getMessage().split("\n").length == 1) {
                 Lang.c.addDefault(value.getPath().toLowerCase(), value.getMessage());
@@ -65,7 +65,7 @@ public enum Lang {
             }
         }
         Lang.c.options().copyDefaults(true);
-        CIFYPiggys.saveConfig();
+        Piggys.saveConfig();
         return true;
     }
 

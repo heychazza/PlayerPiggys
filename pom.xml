@@ -8,15 +8,16 @@
     <artifactId>piggys</artifactId>
     <version>1.2.0</version>
 
-    <name>CIFYPiggys</name>
+    <name>Piggys</name>
     <properties>
-        <package>${groupId}.${artifactId}</package>
+        <plugin>CIFY${project.name}</plugin>
+        <package>${groupId}.${artifactId}.${name}</package>
         <website>https://codeitforyou.com/</website>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
-        <finalName>${project.name}-v${project.version}</finalName>
+        <finalName>${plugin}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory> <!-- (your resources folder location) -->
@@ -39,7 +40,7 @@
                         <artifactId>ZKM</artifactId>
                         <version>10.0.0</version>
                         <scope>system</scope>
-                        <systemPath>D:/Documents/Development/ZKM/ZKM.jar</systemPath>
+                        <systemPath>D:/Documents/Development/Obfuscation/ZKM/ZKM.jar</systemPath>
                     </dependency>
                 </dependencies>
                 <executions>
@@ -113,6 +114,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.3.1</version>
                 <configuration>
+                    <outputDirectory>D:/Documents/Minecraft/TestServer/plugins</outputDirectory>
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                     </archive>
@@ -141,7 +143,7 @@
         <dependency>
             <groupId>com.codeitforyou</groupId>
             <artifactId>lib</artifactId>
-            <version>1.1.0-SNAPSHOT</version>
+            <version>1.1.7-SNAPSHOT</version>
         </dependency>
 
         <dependency>

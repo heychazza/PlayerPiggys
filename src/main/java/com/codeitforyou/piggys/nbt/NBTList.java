@@ -1,6 +1,6 @@
 package com.codeitforyou.piggys.nbt;
 
-import com.codeitforyou.piggys.CIFYPiggys;
+import com.codeitforyou.piggys.Piggys;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,7 +22,7 @@ public class NBTList {
             //nbtBaseClass = Class.forName(version + ".NBTBase");
         } catch (Exception ex) {
             ex.printStackTrace();
-            Bukkit.getPluginManager().disablePlugin(JavaPlugin.getPlugin(CIFYPiggys.class));
+            Bukkit.getPluginManager().disablePlugin(JavaPlugin.getPlugin(Piggys.class));
         }
     }
 

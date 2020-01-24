@@ -1,6 +1,6 @@
 package com.codeitforyou.piggys.listener;
 
-import com.codeitforyou.piggys.CIFYPiggys;
+import com.codeitforyou.piggys.Piggys;
 import com.codeitforyou.piggys.api.PiggyRedeemEvent;
 import com.codeitforyou.piggys.config.Lang;
 import com.codeitforyou.piggys.nbt.NBT;
@@ -19,9 +19,9 @@ import java.util.UUID;
 
 public class PiggyListener implements Listener {
 
-    private CIFYPiggys plugin;
+    private Piggys plugin;
 
-    public PiggyListener(CIFYPiggys plugin) {
+    public PiggyListener(Piggys plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }

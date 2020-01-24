@@ -1,10 +1,10 @@
 package com.codeitforyou.piggys;
 
 import com.codeitforyou.lib.api.command.CommandManager;
-import com.codeitforyou.piggys.command.sub.GiveCommand;
 import com.codeitforyou.piggys.command.PiggyCommand;
-import com.codeitforyou.piggys.command.sub.ReloadCommand;
 import com.codeitforyou.piggys.command.WithdrawCommand;
+import com.codeitforyou.piggys.command.sub.GiveCommand;
+import com.codeitforyou.piggys.command.sub.ReloadCommand;
 import com.codeitforyou.piggys.config.Lang;
 import com.codeitforyou.piggys.listener.DeathListener;
 import com.codeitforyou.piggys.listener.PiggyListener;
@@ -21,14 +21,14 @@ import java.util.Arrays;
 import java.util.Collections;
 
 @MavenLibrary(groupId = "com.github.DRE2N.HeadLib", artifactId = "headlib", version = "30ceaa7f3a", repo = @Repository(url = "https://jitpack.io"))
-public class CIFYPiggys extends JavaPlugin {
+public class Piggys extends JavaPlugin {
     private CommandManager commandManager;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
         registerEconomy();
-        LibraryLoader.loadAll(CIFYPiggys.class);
+        LibraryLoader.loadAll(Piggys.class);
         new PiggyListener(this);
         new DeathListener(this);
 
@@ -47,10 +47,10 @@ public class CIFYPiggys extends JavaPlugin {
         commandManager = new CommandManager(Arrays.asList(GiveCommand.class, ReloadCommand.class), "cifypiggys", this);
         commandManager.setMainCommand(PiggyCommand.class);
 
-        CommandManager.getLocale().setNoPermission(Lang.NO_PERMISSION.asString(Lang.PREFIX.asString()));
-        CommandManager.getLocale().setPlayerOnly(Lang.PLAYER_ONLY.asString(Lang.PREFIX.asString()));
-        CommandManager.getLocale().setUnknownCommand(Lang.COMMAND_INVALID.asString(Lang.PREFIX.asString()));
-        CommandManager.getLocale().setUsage(Lang.PIGGY_COMMAND_USAGE.asString(Lang.PREFIX.asString(), "{usage}"));
+        commandManager.getLocale().setNoPermission(Lang.NO_PERMISSION.asString(Lang.PREFIX.asString()));
+        commandManager.getLocale().setPlayerOnly(Lang.PLAYER_ONLY.asString(Lang.PREFIX.asString()));
+        commandManager.getLocale().setUnknownCommand(Lang.COMMAND_INVALID.asString(Lang.PREFIX.asString()));
+        commandManager.getLocale().setUsage(Lang.PIGGY_COMMAND_USAGE.asString(Lang.PREFIX.asString(), "{usage}"));
 
         final CommandManager withdrawManager = new CommandManager(Collections.emptyList(), "withdraw", this);
         withdrawManager.setMainCommand(WithdrawCommand.class);

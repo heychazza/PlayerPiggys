@@ -25,7 +25,7 @@
 
 package com.codeitforyou.piggys.maven;
 
-import com.codeitforyou.piggys.CIFYPiggys;
+import com.codeitforyou.piggys.Piggys;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -112,7 +112,7 @@ public final class LibraryLoader {
             throw new RuntimeException("Unable to download dependency: " + d.toString());
         }
 
-        URLClassLoader classLoader = (URLClassLoader) JavaPlugin.getPlugin(CIFYPiggys.class).getClass().getClassLoader();
+        URLClassLoader classLoader = (URLClassLoader) JavaPlugin.getPlugin(Piggys.class).getClass().getClassLoader();
         try {
             ADD_URL_METHOD.invoke(classLoader, saveLocation.toURI().toURL());
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public final class LibraryLoader {
     }
 
     private static File getLibFolder() {
-        File pluginDataFolder = JavaPlugin.getPlugin(CIFYPiggys.class).getDataFolder();
+        File pluginDataFolder = JavaPlugin.getPlugin(Piggys.class).getDataFolder();
         File pluginsDir = pluginDataFolder.getParentFile();
         File libs = new File(pluginsDir, "CIFYLibs");
         libs.mkdirs();

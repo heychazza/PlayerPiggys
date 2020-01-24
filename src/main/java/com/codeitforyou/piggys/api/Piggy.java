@@ -1,6 +1,6 @@
 package com.codeitforyou.piggys.api;
 
-import com.codeitforyou.piggys.CIFYPiggys;
+import com.codeitforyou.piggys.Piggys;
 import com.codeitforyou.piggys.config.Lang;
 import de.erethon.headlib.HeadLib;
 import com.codeitforyou.piggys.nbt.NBT;
@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class Piggy {
 
-    private static CIFYPiggys plugin = (CIFYPiggys) JavaPlugin.getProvidingPlugin(CIFYPiggys.class);
+    private static Piggys plugin = (Piggys) JavaPlugin.getProvidingPlugin(Piggys.class);
 
     public static ItemStack create(String name, UUID uuid, long amount) {
         String altName = name;

@@ -1,6 +1,6 @@
-name: ${project.name}
+name: ${plugin}
 version: ${project.version}
-main: ${package}.${project.name}
+main: ${package}
 author: CodeItForYou
 website: ${website}
 depend: ["Vault"]

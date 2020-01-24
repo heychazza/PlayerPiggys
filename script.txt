@@ -1,38 +1,46 @@
 classpath     "%classpathLibs%"
               "%compileArtifactPath%"
               "%pluginArtifactPath%";
-open          "%project.build.directory%%file.separator%%project.build.finalName%.%project.packaging%";
+open          "D:/Documents/Minecraft/TestServer/plugins/%project.build.finalName%.%project.packaging%";
 
 stringEncryptionExclude
-              com.codeitforyou.piggys.CIFYPiggys;
+              com.codeitforyou.piggys.Piggys;
 
 trimExclude   *.* @*.EventHandler *(*);
 
 exclude       com.codeitforyou.piggys. and
-              com.codeitforyou.piggys.CIFYPiggys and
+              com.codeitforyou.piggys.Piggys and
 
               com.codeitforyou.piggys.api. and
               com.codeitforyou.piggys.api.* and
               com.codeitforyou.piggys.api.* * and
               com.codeitforyou.piggys.api.* * (*) and
 
+              *.* @*.EventHandler *(*) and
+              *.* @*.Command *(*) and
+
               com.codeitforyou.piggys.storage.*.*PlayerData and
               com.codeitforyou.piggys.storage.*.*PlayerData * and
               com.codeitforyou.piggys.storage.*.*PlayerData * (*)
               ;
 
-obfuscate   obfuscateFlow=extraAggressive
-            encryptStringLiterals=enhanced
-            mixedCaseClassNames=true
+obfuscate
+            changeLogFileOut="ChangeLog.txt"
+            keepInnerClassInfo=ifNameNotObfuscated // should be true to allow use of OpenAPI inner classes
+            keepGenericsInfo=true
             aggressiveMethodRenaming=true
-            hideFieldNames=true
-            uniqueClassNames=true
+            obfuscateFlow=aggressive
+            exceptionObfuscation=heavy
+            encryptStringLiterals=enhanced
+            legalIdentifiers=true
+            lineNumbers=keep
+            hideFieldNames=false
+            hideStaticMethodNames=false
             randomize=true
-            localVariables=obfuscate
-            lineNumbers=scramble
-            autoReflectionHandling=normal
-            lineNumbers=scramble
-            collapsePackagesWithDefault="$$Skid$$"
-            newNamesPrefix="$$GL_HAVE_FUN_SKID$$";
+            methodParameters=keepVisibleIfNotObfuscated
+            localVariables=keepMethodParametersIfNotObfuscated
+            methodParameterChanges=flowObfuscate
+            obfuscateReferences=normal
+            ;
 
-saveAll     "%project.build.directory%";
+saveAll     "D:/Documents/Minecraft/TestServer/plugins/%project.build.finalName%.%project.packaging%";

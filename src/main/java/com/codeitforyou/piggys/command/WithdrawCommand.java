@@ -1,7 +1,7 @@
 package com.codeitforyou.piggys.command;
 
 import com.codeitforyou.lib.api.command.Command;
-import com.codeitforyou.piggys.CIFYPiggys;
+import com.codeitforyou.piggys.Piggys;
 import com.codeitforyou.piggys.api.Piggy;
 import com.codeitforyou.piggys.config.Lang;
 import com.codeitforyou.piggys.util.ArgUtil;
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 public class WithdrawCommand {
     @Command(aliases = {}, about = "The main withdraw command.", permission = "cifypiggys.withdraw", usage = "<amount>")
-    public static void execute(final Player player, final CIFYPiggys plugin, final String[] args) {
+    public static void execute(final Player player, final Piggys plugin, final String[] args) {
         if (args.length < 1) {
             Lang.WITHDRAW_COMMAND_USAGE.send(player, Lang.PREFIX.asString());
             return;
