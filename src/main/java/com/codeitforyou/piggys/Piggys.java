@@ -47,6 +47,7 @@ public class Piggys extends JavaPlugin {
         commandManager = new CommandManager(Arrays.asList(GiveCommand.class, ReloadCommand.class), "cifypiggys", this);
         commandManager.setMainCommand(PiggyCommand.class);
 
+        commandManager.register();
         commandManager.getLocale().setNoPermission(Lang.NO_PERMISSION.asString(Lang.PREFIX.asString()));
         commandManager.getLocale().setPlayerOnly(Lang.PLAYER_ONLY.asString(Lang.PREFIX.asString()));
         commandManager.getLocale().setUnknownCommand(Lang.COMMAND_INVALID.asString(Lang.PREFIX.asString()));
@@ -55,6 +56,8 @@ public class Piggys extends JavaPlugin {
         final CommandManager withdrawManager = new CommandManager(Collections.emptyList(), "withdraw", this);
         withdrawManager.setMainCommand(WithdrawCommand.class);
         withdrawManager.setMainCommandArgs(true);
+        withdrawManager.addAlias("deposit");
+        withdrawManager.register();
     }
 
     public void handleReload() {

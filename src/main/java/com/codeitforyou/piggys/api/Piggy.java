@@ -1,12 +1,13 @@
 package com.codeitforyou.piggys.api;
 
+import com.codeitforyou.lib.api.xseries.XMaterial;
 import com.codeitforyou.piggys.Piggys;
 import com.codeitforyou.piggys.config.Lang;
-import de.erethon.headlib.HeadLib;
 import com.codeitforyou.piggys.nbt.NBT;
-import com.codeitforyou.piggys.util.Common;
+import de.erethon.headlib.HeadLib;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,16 +27,26 @@ public class Piggy {
             uuid = UUID.randomUUID();
         }
 
-        Material material = Common.getVersion() >= 113 ? Material.getMaterial("LEGACY_SKULL_ITEM") : Material.getMaterial("SKULL_ITEM");
+        String withdrawItem = plugin.getConfig().getString("settings.item", "SKULL_ITEM").toUpperCase();
+        Material material = XMaterial.valueOf(withdrawItem).parseMaterial();
 
-        if(material == null) material = Material.valueOf("SKULL_ITEM");
+        if (material == null) material = Material.valueOf("SKULL_ITEM");
 
-        ItemStack is = new ItemStack(material, 1, (short) 3);
-        SkullMeta sm = (SkullMeta) is.getItemMeta();
-        sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name));
-        sm.setLore(new ArrayList<>(Arrays.asList(Lang.PIGGY_BANK_LORE.asString(name, amount).split("\n"))));
-        sm.setOwner(altName);
-        is.setItemMeta(sm);
+        ItemStack is;
+        if (material.name().contains("SKULL_ITEM")) {
+            is = new ItemStack(material, 1, (short) 3);
+            SkullMeta sm = (SkullMeta) is.getItemMeta();
+            sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name));
+            sm.setLore(new ArrayList<>(Arrays.asList(Lang.PIGGY_BANK_LORE.asString(name, amount).split("\n"))));
+            sm.setOwner(altName);
+            is.setItemMeta(sm);
+        } else {
+            is = new ItemStack(material, 1);
+            ItemMeta sm = is.getItemMeta();
+            sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name));
+            sm.setLore(new ArrayList<>(Arrays.asList(Lang.PIGGY_BANK_LORE.asString(name, amount).split("\n"))));
+            is.setItemMeta(sm);
+        }
 
         NBT nbtItem = NBT.get(is);
         if (nbtItem != null) {

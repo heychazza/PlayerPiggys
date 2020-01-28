@@ -11,10 +11,6 @@ commands:
     description: CIFYPiggys commands
     usage: ""
     aliases: ["piggybanks", "pbanks", "piggy", "piggys"]
-  withdraw:
-    description: CIFYPiggys commands
-    usage: ""
-    aliases: ["deposit"]
 
 permissions:
   cifypiggys.reload:
