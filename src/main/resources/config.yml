@@ -10,8 +10,13 @@
 #
 
 settings:
+  item: SKULL_ITEM
   min: 1
   max: 500000
+
+# If specified as a SKULL_ITEM, you can specify its texture using:
+# skull: "BASE-64-STRING"
+# Uncomment the above and set your string.
 
 drops:
   enabled: true

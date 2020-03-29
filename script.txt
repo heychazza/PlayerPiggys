@@ -4,7 +4,8 @@ classpath     "%classpathLibs%"
 open          "D:/Documents/Minecraft/TestServer/plugins/%project.build.finalName%.%project.packaging%";
 
 stringEncryptionExclude
-              com.codeitforyou.piggys.Piggys;
+              com.codeitforyou.piggys.Piggys and
+              com.codeitforyou.piggys.util.Common;
 
 trimExclude   *.* @*.EventHandler *(*);
 

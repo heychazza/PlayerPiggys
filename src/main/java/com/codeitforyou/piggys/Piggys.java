@@ -47,6 +47,8 @@ public class Piggys extends JavaPlugin {
         commandManager = new CommandManager(Arrays.asList(GiveCommand.class, ReloadCommand.class), "cifypiggys", this);
         commandManager.setMainCommand(PiggyCommand.class);
 
+        Arrays.asList("piggybanks", "pbanks", "piggy", "piggys").forEach(commandManager::addAlias);
+
         commandManager.register();
         commandManager.getLocale().setNoPermission(Lang.NO_PERMISSION.asString(Lang.PREFIX.asString()));
         commandManager.getLocale().setPlayerOnly(Lang.PLAYER_ONLY.asString(Lang.PREFIX.asString()));

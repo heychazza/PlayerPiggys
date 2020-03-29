@@ -17,6 +17,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
 
+import static com.codeitforyou.piggys.util.Common.isUpdated;
+
 public class PiggyListener implements Listener {
 
     private Piggys plugin;
@@ -24,6 +26,10 @@ public class PiggyListener implements Listener {
     public PiggyListener(Piggys plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
+
+        if (isUpdated.equalsIgnoreCase("%%" + "__SONGODA__%%") || !isUpdated.equalsIgnoreCase("true") || isUpdated.isEmpty()) {
+            plugin.getServer().getPluginManager().disablePlugin(plugin);
+        }
     }
 
     @EventHandler

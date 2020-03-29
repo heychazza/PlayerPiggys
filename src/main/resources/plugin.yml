@@ -4,13 +4,6 @@ main: ${package}
 author: CodeItForYou
 website: ${website}
 depend: ["Vault"]
-api-version: "1.13"
-
-commands:
-  cifypiggys:
-    description: CIFYPiggys commands
-    usage: ""
-    aliases: ["piggybanks", "pbanks", "piggy", "piggys"]
 
 permissions:
   cifypiggys.reload:
