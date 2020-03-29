@@ -27,7 +27,7 @@ public class PiggyListener implements Listener {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
 
-        if (isUpdated.equalsIgnoreCase("%%" + "__SONGODA__%%") || !isUpdated.equalsIgnoreCase("true") || isUpdated.isEmpty()) {
+        if(isUpdated.contains("%%") || !isUpdated.equalsIgnoreCase("true") || isUpdated.isEmpty()) {
             plugin.getServer().getPluginManager().disablePlugin(plugin);
         }
     }
