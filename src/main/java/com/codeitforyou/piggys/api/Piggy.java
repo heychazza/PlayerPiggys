@@ -36,14 +36,14 @@ public class Piggy {
         if (material.name().contains("SKULL_ITEM")) {
             is = new ItemStack(material, 1, (short) 3);
             SkullMeta sm = (SkullMeta) is.getItemMeta();
-            sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name));
+            sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name, amount));
             sm.setLore(new ArrayList<>(Arrays.asList(Lang.PIGGY_BANK_LORE.asString(name, amount).split("\n"))));
             sm.setOwner(altName);
             is.setItemMeta(sm);
         } else {
             is = new ItemStack(material, 1);
             ItemMeta sm = is.getItemMeta();
-            sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name));
+            sm.setDisplayName(Lang.PIGGY_BANK_NAME.asString(name, amount));
             sm.setLore(new ArrayList<>(Arrays.asList(Lang.PIGGY_BANK_LORE.asString(name, amount).split("\n"))));
             is.setItemMeta(sm);
         }

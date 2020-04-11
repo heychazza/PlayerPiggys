@@ -26,10 +26,6 @@ public class PiggyListener implements Listener {
     public PiggyListener(Piggys plugin) {
         this.plugin = plugin;
         Bukkit.getPluginManager().registerEvents(this, plugin);
-
-        if(isUpdated.contains("%%") || !isUpdated.equalsIgnoreCase("true") || isUpdated.isEmpty()) {
-            plugin.getServer().getPluginManager().disablePlugin(plugin);
-        }
     }
 
     @EventHandler
