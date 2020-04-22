@@ -2,6 +2,7 @@ package com.codeitforyou.piggys.listener;
 
 import com.codeitforyou.piggys.Piggys;
 import com.codeitforyou.piggys.api.PiggyRedeemEvent;
+import com.codeitforyou.piggys.api.PiggySlot;
 import com.codeitforyou.piggys.config.Lang;
 import com.codeitforyou.piggys.nbt.NBT;
 import org.bukkit.Bukkit;
@@ -31,15 +32,16 @@ public class PiggyListener implements Listener {
     @EventHandler
     public void onPiggyUse(PlayerInteractEvent e) {
         Player player = e.getPlayer();
+        ItemStack item;
 
+        PiggySlot piggySlot = PiggySlot.MAIN_HAND;
         if (!Bukkit.getVersion().contains("1.8")) {
-            if (e.getHand() == EquipmentSlot.OFF_HAND) {
-                return; // off hand packet, ignore.
-            }
+            if (e.getHand() == EquipmentSlot.OFF_HAND)
+                piggySlot = PiggySlot.OFF_HAND;
         }
 
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            ItemStack item = e.hasItem() ? e.getItem() : null;
+            item = e.hasItem() ? e.getItem() : null;
 
             if (item == null) return;
             NBT nbtItem = NBT.get(item);
@@ -51,7 +53,7 @@ public class PiggyListener implements Listener {
                 long value = nbtItem.getLong("balance");
 
                 e.setCancelled(true);
-                PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value);
+                PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value, item, piggySlot);
                 Bukkit.getPluginManager().callEvent(piggyRedeemEvent);
             }
         }
@@ -63,6 +65,12 @@ public class PiggyListener implements Listener {
 
         ItemStack item = e.getItemInHand();
 
+        PiggySlot piggySlot = PiggySlot.MAIN_HAND;
+        if (!Bukkit.getVersion().contains("1.8")) {
+            if (e.getHand() == EquipmentSlot.OFF_HAND)
+                piggySlot = PiggySlot.OFF_HAND;
+        }
+
         if (item.getType() == Material.AIR) return;
         NBT nbtItem = NBT.get(item);
         if (nbtItem != null && nbtItem.hasNBTData() && nbtItem.hasKey("created-by-name")) {
@@ -71,7 +79,7 @@ public class PiggyListener implements Listener {
             long value = nbtItem.getLong("balance");
 
             e.setCancelled(true);
-            PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value);
+            PiggyRedeemEvent piggyRedeemEvent = new PiggyRedeemEvent(player, createdBy, value, item, piggySlot);
             Bukkit.getPluginManager().callEvent(piggyRedeemEvent);
         }
     }
@@ -82,6 +90,7 @@ public class PiggyListener implements Listener {
         Player player = e.getPlayer();
         UUID createdBy = e.getOwnedBy();
         Long value = e.getAmount();
+        ItemStack piggyItem = e.getItem();
 
         if(createdBy == null) {
             // Console
@@ -93,6 +102,14 @@ public class PiggyListener implements Listener {
         }
 
         plugin.getEcon().depositPlayer(player, value);
+
+        if (e.getSlot() == PiggySlot.MAIN_HAND) {
+            if (piggyItem.getAmount() == 1) player.setItemInHand(null);
+            else player.getItemInHand().setAmount(piggyItem.getAmount() - 1);
+        } else {
+            if (piggyItem.getAmount() == 1) player.getInventory().setItemInOffHand(null);
+            else player.getInventory().getItemInOffHand().setAmount(piggyItem.getAmount() - 1);
+        }
 
         if (player.getItemInHand().getAmount() > 1)
             player.getItemInHand().setAmount(player.getItemInHand().getAmount() - 1);
