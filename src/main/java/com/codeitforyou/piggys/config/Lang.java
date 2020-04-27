@@ -35,7 +35,9 @@ public enum Lang {
 
     CONSOLE("Console"),
 
-    OUT_OF_RANGE("{0} &7Please choose an amount between &d{1} &7and &d{2}&7.");
+    OUT_OF_RANGE("{0} &7Please choose an amount between &d{1} &7and &d{2}&7."),
+
+    COOLDOWN("{0} &7You must wait &d{1} second(s) &7before doing that!");
 
     private String message;
     private static FileConfiguration c;
