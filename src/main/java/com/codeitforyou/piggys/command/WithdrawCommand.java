@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("UnstableApiUsage")
 public class WithdrawCommand {
 
-    private static final int cooldown = JavaPlugin.getPlugin(Piggys.class).getConfig().getInt("cooldown", 30);
+    private static final int cooldown = JavaPlugin.getPlugin(Piggys.class).getConfig().getInt("settings.cooldown", 30);
     private static final Cache<UUID, Long> playerCooldowns = CacheBuilder.newBuilder()
             .expireAfterWrite(cooldown, TimeUnit.SECONDS)
             .maximumSize(500)
